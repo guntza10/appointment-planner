@@ -1,9 +1,17 @@
-import React from "react";
+import React from "react"
 
-export const TileList = () => {
+const TileList = React.memo(({ contacts }) => {
   return (
     <div>
-      
+      {contacts.map(({ name, phone, email }, index) => (
+        <div className="tile-container">
+          <div className="tile tile-title">{name}</div>
+          <div className="tile">{phone}</div>
+          <div className="tile">{email}</div>
+        </div>
+      ))}
     </div>
-  );
-};
+  )
+})
+
+export default TileList

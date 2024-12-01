@@ -1,36 +1,56 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react"
 
-import { ContactForm } from "../../components/contactForm/ContactForm";
-import { TileList } from "../../components/tileList/TileList";
+import ContactForm from "../../components/contactForm/ContactForm"
+import TileList from "../../components/tileList/TileList"
 
-export const ContactsPage = () => {
-  /*
-  Define state variables for 
-  contact info and duplicate check
-  */
+const initialContactForm = {
+  name: "",
+  phone: "",
+  email: "",
+}
 
+const ContactsPage = React.memo(({ contacts, handleAddContact }) => {
+  const [contactForm, setContactForm] = useState(initialContactForm)
+  const [isDuplidatedName, setIsDuplicatedName] = useState(false)
+
+  const handleChangeContactForm = ({ target: { name, value } }) => {
+    setContactForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }))
+    if (name === "name") {
+      const isDuplicated =
+        value.trim() !== "" &&
+        contacts.some(({ name }) => name.toLowerCase() === value.toLowerCase())
+      setIsDuplicatedName(isDuplicated)
+    }
+  }
   const handleSubmit = (e) => {
-    e.preventDefault();
-    /*
-    Add contact info and clear data
-    if the contact name is not a duplicate
-    */
-  };
-
-  /*
-  Using hooks, check for contact name in the 
-  contacts array variable in props
-  */
+    e.preventDefault()
+    if (!isDuplidatedName) {
+      handleAddContact(contactForm)
+      setContactForm(initialContactForm)
+    }
+  }
 
   return (
     <div>
       <section>
-        <h2>Add Contact</h2> 
+        <h2>Add Contact</h2>
+        <ContactForm
+          contactForm={contactForm}
+          isDuplidatedName={isDuplidatedName}
+          handleChangeContactForm={handleChangeContactForm}
+          handleSubmit={handleSubmit}
+        />
       </section>
       <hr />
       <section>
         <h2>Contacts</h2>
+        <TileList contacts={contacts} />
       </section>
     </div>
-  );
-};
+  )
+})
+
+export default ContactsPage
