@@ -21,11 +21,8 @@ function App() {
   // appointments
   const [appointments, setAppointments] = useState([])
 
-  const handleAddAppointment = () => {
-    setAppointments((prev) => [
-      ...prev,
-      { name: "", contact: "", date: "", time: "" },
-    ])
+  const handleAddAppointment = (newAppointment) => {
+    setAppointments((prev) => [...prev, newAppointment])
   }
 
   const router = createBrowserRouter(
@@ -46,6 +43,7 @@ function App() {
           element={
             <AppointmentsPage
               appointments={appointments}
+              contacts={contacts}
               handleAddAppointment={handleAddAppointment}
             />
           }
