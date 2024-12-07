@@ -14,6 +14,7 @@ const AppointmentsPage = React.memo(
     const [appointmentForm, setAppointmentForm] = useState(
       initialAppointmentForm
     )
+    const [isDuplidatedName, setIsDuplicatedName] = useState(false)
 
     const handleChangeAppointmentForm = ({ target: { name, value } }) => {
       setAppointmentForm((prev) => ({
@@ -21,10 +22,24 @@ const AppointmentsPage = React.memo(
         [name]: value,
       }))
     }
+    const handleCheckIsDuplicateName = () => {
+      const isDuplicated =
+        appointmentForm.name.trim() !== "" &&
+        appointments.some(
+          ({ name }) =>
+            name.toLowerCase() === appointmentForm.name.toLowerCase()
+        )
+
+      return isDuplicated
+    }
     const handleSubmit = (e) => {
       e.preventDefault()
-      handleAddAppointment(appointmentForm)
-      setAppointmentForm(initialAppointmentForm)
+      const isDuplicated = handleCheckIsDuplicateName()
+      setIsDuplicatedName(isDuplicated)
+      if (!isDuplicated) {
+        handleAddAppointment(appointmentForm)
+        setAppointmentForm(initialAppointmentForm)
+      }
     }
 
     return (
@@ -33,6 +48,7 @@ const AppointmentsPage = React.memo(
           <h2>Add Appointment</h2>
           <AppointmentForm
             appointmentForm={appointmentForm}
+            isDuplidatedName={isDuplidatedName}
             contacts={contacts}
             handleChangeAppointmentForm={handleChangeAppointmentForm}
             handleSubmit={handleSubmit}

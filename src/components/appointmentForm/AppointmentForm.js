@@ -12,6 +12,7 @@ const AppointmentForm = React.memo(
     appointmentForm,
     handleChangeAppointmentForm,
     handleSubmit,
+    isDuplidatedName,
   }) => {
     return (
       <form onSubmit={handleSubmit}>
@@ -24,6 +25,9 @@ const AppointmentForm = React.memo(
             onChange={handleChangeAppointmentForm}
             required
           />
+          {isDuplidatedName && (
+            <h3 className="error-message">Name is duplicated.</h3>
+          )}
         </section>
 
         <section>
