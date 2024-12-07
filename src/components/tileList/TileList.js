@@ -4,8 +4,8 @@ import Tile from "../tile/Tile"
 const TileList = React.memo(({ datas }) => {
   return (
     <div>
-      {datas.map(({ name, ...rest }, index) => (
-        <Tile key={index} name={name} description={rest} />
+      {datas.map(({ id, name, ...rest }) => (
+        <Tile key={id} name={name} description={rest} />
       ))}
     </div>
   )
