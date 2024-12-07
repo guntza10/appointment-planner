@@ -1,11 +1,12 @@
 import React from "react"
 
-const Tile = React.memo(({ data }) => {
+const Tile = React.memo(({ name, description }) => {
   return (
     <div className="tile-container">
-      <div className="tile tile-title">{data?.name}</div>
-      <div className="tile">{data?.phone}</div>
-      <div className="tile">{data?.email}</div>
+      <p className="tile tile-title">{name}</p>
+      {Object.values(description).map((v) => (
+        <div className="tile">{v}</div>
+      ))}
     </div>
   )
 })
