@@ -18,18 +18,25 @@ const ContactsPage = React.memo(({ contacts, handleAddContact }) => {
       ...prev,
       [name]: value,
     }))
-    if (name === "name") {
-      const isDuplicated =
-        value.trim() !== "" &&
-        contacts.some(({ name }) => name.toLowerCase() === value.toLowerCase())
-      setIsDuplicatedName(isDuplicated)
-    }
+  }
+  const handleCheckIsDuplicateName = () => {
+    const isDuplicated =
+      contactForm.name.trim() !== "" &&
+      contacts.some(
+        ({ name }) => name.toLowerCase() === contactForm.name.toLowerCase()
+      )
+
+    return isDuplicated
   }
   const handleSubmit = (e) => {
     e.preventDefault()
-    const uniqueId = crypto.randomUUID()
-    handleAddContact({ ...contactForm, id: uniqueId })
-    setContactForm(initialContactForm)
+    const isDuplicated = handleCheckIsDuplicateName()
+    setIsDuplicatedName(isDuplicated)
+    if (!isDuplicated) {
+      const uniqueId = crypto.randomUUID()
+      handleAddContact({ ...contactForm, id: uniqueId })
+      setContactForm(initialContactForm)
+    }
   }
 
   return (
