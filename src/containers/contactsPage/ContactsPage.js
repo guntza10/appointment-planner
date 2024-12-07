@@ -27,7 +27,12 @@ const ContactsPage = React.memo(({ contacts, handleAddContact }) => {
   }
   const handleSubmit = (e) => {
     e.preventDefault()
-    if (!isDuplidatedName) {
+    if (
+      !isDuplidatedName &&
+      contactForm.name &&
+      contactForm.email &&
+      contactForm.email
+    ) {
       handleAddContact(contactForm)
       setContactForm(initialContactForm)
     }
@@ -47,7 +52,7 @@ const ContactsPage = React.memo(({ contacts, handleAddContact }) => {
       <hr />
       <section>
         <h2>Contacts</h2>
-        <TileList contacts={contacts} />
+        <TileList datas={contacts} />
       </section>
     </div>
   )
