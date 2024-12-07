@@ -27,15 +27,9 @@ const ContactsPage = React.memo(({ contacts, handleAddContact }) => {
   }
   const handleSubmit = (e) => {
     e.preventDefault()
-    if (
-      !isDuplidatedName &&
-      contactForm.name &&
-      contactForm.email &&
-      contactForm.email
-    ) {
-      handleAddContact(contactForm)
-      setContactForm(initialContactForm)
-    }
+    const uniqueId = crypto.randomUUID()
+    handleAddContact({ ...contactForm, id: uniqueId })
+    setContactForm(initialContactForm)
   }
 
   return (

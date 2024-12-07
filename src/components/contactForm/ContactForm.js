@@ -16,6 +16,7 @@ const ContactForm = React.memo(
             name="name"
             value={contactForm.name}
             onChange={handleChangeContactForm}
+            required
           />
           {isDuplidatedName && (
             <h3 className="error-message">Name is duplicated.</h3>
@@ -29,6 +30,7 @@ const ContactForm = React.memo(
             value={contactForm.phone}
             onChange={handleChangeContactForm}
             pattern="^(0[689]{1}[0-9]{8}|0[2-9]{1}[0-9]{7})$"
+            required
           />
           <small>
             Format: 10 digits, starting with 06, 08, 09 for mobile or 02 for
@@ -42,6 +44,7 @@ const ContactForm = React.memo(
             name="email"
             value={contactForm.email}
             onChange={handleChangeContactForm}
+            required
           />
         </section>
 
