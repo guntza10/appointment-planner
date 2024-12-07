@@ -1,14 +1,11 @@
 import React from "react"
+import Tile from "../tile/Tile"
 
 const TileList = React.memo(({ contacts }) => {
   return (
     <div>
-      {contacts.map(({ name, phone, email }, index) => (
-        <div className="tile-container">
-          <div className="tile tile-title">{name}</div>
-          <div className="tile">{phone}</div>
-          <div className="tile">{email}</div>
-        </div>
+      {contacts.map((contact, index) => (
+        <Tile data={contact} />
       ))}
     </div>
   )

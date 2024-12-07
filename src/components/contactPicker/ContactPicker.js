@@ -1,7 +1,7 @@
-import React from "react";
+import React from "react"
 
-export const ContactPicker = () => {
-  return (
-    <></>
-  );
-};
+const ContactPicker = React.memo(() => {
+  return <></>
+})
+
+export default ContactPicker

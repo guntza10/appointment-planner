@@ -1,21 +1,20 @@
-import React, { useState } from "react";
+import React, { useState } from "react"
 
-import { AppointmentForm } from "../../components/appointmentForm/AppointmentForm";
-import { TileList } from "../../components/tileList/TileList";
+import { AppointmentForm } from "../../components/appointmentForm/AppointmentForm"
+import { TileList } from "../../components/tileList/TileList"
 
-export const AppointmentsPage = () => {
+const AppointmentsPage = React.memo(() => {
   /*
   Define state variables for 
   appointment info
   */
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     /*
     Add contact info and clear data  
     */
-   
-  };
+  }
 
   return (
     <div>
@@ -27,5 +26,7 @@ export const AppointmentsPage = () => {
         <h2>Appointments</h2>
       </section>
     </div>
-  );
-};
+  )
+})
+
+export default AppointmentsPage
