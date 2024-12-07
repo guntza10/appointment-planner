@@ -1,32 +1,51 @@
 import React, { useState } from "react"
 
-import { AppointmentForm } from "../../components/appointmentForm/AppointmentForm"
-import { TileList } from "../../components/tileList/TileList"
+import AppointmentForm from "../../components/appointmentForm/AppointmentForm"
+import TileList from "../../components/tileList/TileList"
 
-const AppointmentsPage = React.memo(() => {
-  /*
-  Define state variables for 
-  appointment info
-  */
+const initialAppointmentForm = {
+  name: "",
+  contact: "",
+  date: "",
+  time: "",
+}
+const AppointmentsPage = React.memo(
+  ({ appointments, contacts, handleAddAppointment }) => {
+    const [appointmentForm, setAppointmentForm] = useState(
+      initialAppointmentForm
+    )
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    /*
-    Add contact info and clear data  
-    */
+    const handleChangeAppointmentForm = ({ target: { name, value } }) => {
+      setAppointmentForm((prev) => ({
+        ...prev,
+        [name]: value,
+      }))
+    }
+    const handleSubmit = (e) => {
+      e.preventDefault()
+      handleAddAppointment(appointmentForm)
+      setAppointmentForm(initialAppointmentForm)
+    }
+
+    return (
+      <div>
+        <section>
+          <h2>Add Appointment</h2>
+          <AppointmentForm
+            appointmentForm={appointmentForm}
+            contacts={contacts}
+            handleChangeAppointmentForm={handleChangeAppointmentForm}
+            handleSubmit={handleSubmit}
+          />
+        </section>
+        <hr />
+        <section>
+          <h2>Appointments</h2>
+          <TileList datas={appointments} />
+        </section>
+      </div>
+    )
   }
-
-  return (
-    <div>
-      <section>
-        <h2>Add Appointment</h2>
-      </section>
-      <hr />
-      <section>
-        <h2>Appointments</h2>
-      </section>
-    </div>
-  )
-})
+)
 
 export default AppointmentsPage
